@@ -1,17 +1,21 @@
 # javachat
 
 
+## Install components
+
+Run ` mvn install ` to download and install needed components
+
 ## Project compiling
 
-Run `java *.java` to compile files
+Run ` mvn compile ` to compile the source code
 
 ## Server
 
-Run `java Server port` to run the server
+Run `mvn exec:java -Dexec.mainClass="mx.unam.ciencias.myp.server.Server" -Dexec.args="3001"` to run the server on port 3001
 
 ## Chat. Can run multiple clients at the same time
 
-Run `java Chat host port` to run the client
+Run `mvn exec:java -Dexec.mainClass="mx.unam.ciencias.myp.chat.Chat" -Dexec.args="localhost 3001"` to run the chat
 
 ## To identify users
 
