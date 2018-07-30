@@ -5,9 +5,9 @@ import java.io.*;
 
 public class ServerThread extends Thread {
 
-    private Server server = null;
-    private Socket socket = null;
-    private int ID = -1;
+    private Server server;
+    private Socket socket;
+    private int ID;
     private ObjectInputStream streamIn = null;
     private ObjectOutputStream streamOut = null;
     private User user;
@@ -57,9 +57,6 @@ public class ServerThread extends Thread {
         return user;
     }
 
-    public boolean isIdentified() {
-        return user != null;
-    }
 
     public void send(String msg) {
         try {

@@ -13,7 +13,6 @@ public class Chat implements Runnable {
     private Socket socket = null;
     private DataInputStream console = null;
     private ObjectOutputStream streamOut = null;
-
     private Thread thread = null;
     private ChatThread client = null;
     public PriorityQueue<String> messages;
@@ -34,17 +33,6 @@ public class Chat implements Runnable {
         }
     }
 
-
-    public void sendMessage(String msg) {
-        Object message = msg;
-        try {
-            streamOut.writeObject(message);
-            streamOut.flush();
-        } catch (IOException ioe) {
-            System.out.println("...ERROR TO SEND: " + ioe.getMessage());
-            stop();
-        }
-    }
 
     public void run() {
         Object message;
@@ -70,8 +58,13 @@ public class Chat implements Runnable {
         Message msg = new Message();
         switch (parts[0]) {
             case "CONNECT":
-                msg.setType(MessageType.CONNECT);
-                msg.setMessage(parts[1]);
+                try {
+                    msg.setType(MessageType.CONNECT);
+                    msg.setMessage(parts[1]);
+                } catch (ArrayIndexOutOfBoundsException exception) {
+                    System.out.println("CONNECT USERNAME");
+                    return null;
+                }
                 break;
             case "USERS":
                 msg.setType(MessageType.USERS);
@@ -80,8 +73,13 @@ public class Chat implements Runnable {
                 msg.setType(MessageType.DISCONNECT);
                 break;
             case "STATUS":
-                msg.setType(MessageType.STATUS);
-                msg.setMessage(parts[1]);
+                try {
+                    msg.setType(MessageType.STATUS);
+                    msg.setMessage(parts[1]);
+                } catch (ArrayIndexOutOfBoundsException exception) {
+                    System.out.println("STATUS ACTIVE/BUSY/AWAY");
+                    return null;
+                }
                 break;
             case "MESSAGE":
                 try {
