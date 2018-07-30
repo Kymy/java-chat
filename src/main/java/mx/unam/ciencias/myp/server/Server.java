@@ -75,16 +75,29 @@ public class Server implements Runnable {
                 identifyUser(serverThread, message);
                 break;
             case USERS:
-                showUsers(serverThread);
+                System.out.println("USERS");
+                if (serverThread.isIdentified()) {
+                    showUsers(serverThread);
+                } else {
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
+                }
                 break;
             case DISCONNECT:
                 disconnectUser(serverThread);
                 break;
             case STATUS:
-                setUserStatus(serverThread, message);
+                if (serverThread.isIdentified()) {
+                    setUserStatus(serverThread, message);
+                } else {
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
+                }
                 break;
             case MESSAGE:
-                sendMessageToUser(serverThread, message);
+                if (serverThread.isIdentified()) {
+                    sendMessageToUser(serverThread, message);
+                } else {
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
+                }
                 break;
         }
     }

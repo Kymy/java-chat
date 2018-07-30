@@ -6,8 +6,8 @@ import java.io.*;
 
 public class ChatThread extends Thread {
 
-    private Socket socket = null;
-    private Chat client = null;
+    private Socket socket;
+    private Chat client;
     private ObjectInputStream streamIn = null;
 
 

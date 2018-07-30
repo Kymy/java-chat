@@ -57,6 +57,13 @@ public class ServerThread extends Thread {
         return user;
     }
 
+    public boolean isIdentified() {
+        boolean isIdentified = false;
+        if (this.user != null) {
+            isIdentified =  this.user.getName() != null;
+        }
+        return isIdentified;
+    }
 
     public void send(String msg) {
         try {
