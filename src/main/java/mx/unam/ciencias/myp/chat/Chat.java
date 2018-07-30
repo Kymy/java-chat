@@ -52,8 +52,10 @@ public class Chat implements Runnable {
             try {
                 message = console.readLine();
                 Message msg = createMessage((String) message);
-                streamOut.writeObject(msg);
-                streamOut.flush();
+                if (msg != null ) {
+                    streamOut.writeObject(msg);
+                    streamOut.flush();
+                }
             } catch (IOException ioe) {
                 System.out.println("...ERROR TO SEND: " + ioe.getMessage());
                 stop();
@@ -82,13 +84,19 @@ public class Chat implements Runnable {
                 msg.setMessage(parts[1]);
                 break;
             case "MESSAGE":
-                msg.setType(MessageType.MESSAGE);
-                msg.setToWhom(parts[1]);
-                String message = "";
-                for (int i=2; i<parts.length; i++) {
-                    message += parts[i] + " ";
+                try {
+                    msg.setType(MessageType.MESSAGE);
+                    msg.setToWhom(parts[1]);
+                    String message = "";
+                    for (int i=2; i<parts.length; i++) {
+                        message += parts[i] + " ";
+                    }
+                    msg.setMessage(message);
+                } catch(ArrayIndexOutOfBoundsException exception) {
+                    System.out.println("MESSAGE USER MESSAGE_CONTENT");
+                    return null;
                 }
-                msg.setMessage(message);
+
                 break;
             default:
                 msg.setType(MessageType.INVALID);

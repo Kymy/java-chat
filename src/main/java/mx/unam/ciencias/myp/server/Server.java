@@ -170,6 +170,7 @@ public class Server implements Runnable {
         ServerThread serverToWhom = findServerByUser(toWhom);
         String toSend = serverThread.getUser().getName() + " " + msg;
         serverToWhom.send(toSend);
+        serverThread.send("...MESSAGE SENT");
     }
 
     public ServerThread findServerByUser(String username) {
