@@ -168,14 +168,19 @@ public class Server implements Runnable {
         String toWhom = message.getToWhom();
         String msg = message.getMessage();
         ServerThread serverToWhom = findServerByUser(toWhom);
-        String toSend = serverThread.getUser().getName() + " " + msg;
-        serverToWhom.send(toSend);
-        serverThread.send("...MESSAGE SENT");
+        if (serverToWhom == null) {
+            serverThread.send("...USER " + toWhom + " NOT FOUND");
+        } else {
+            String toSend = serverThread.getUser().getName() + ": " + msg;
+            serverToWhom.send(toSend);
+            serverThread.send("...MESSAGE SENT");
+        }
+
     }
 
     public ServerThread findServerByUser(String username) {
         String name;
-        ServerThread actualServer = null;
+        ServerThread actualServer;
         for (int i = 0; i < identifiedClients.size(); i++) {
             actualServer = identifiedClients.get(i);
             name = actualServer.getUser().getName();
@@ -183,7 +188,7 @@ public class Server implements Runnable {
                 return actualServer;
             }
         }
-        return actualServer;
+        return null;
     }
 
     private ServerThread findClient(int ID) {
