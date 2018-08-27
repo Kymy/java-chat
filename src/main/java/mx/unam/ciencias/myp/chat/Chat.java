@@ -96,6 +96,20 @@ public class Chat implements Runnable {
                 }
 
                 break;
+            case "PUBLICMESSAGE":
+                try {
+                    msg.setType(MessageType.PUBLICMESSAGE);
+                    String message = "";
+                    for (int i=1; i<parts.length; i++) {
+                        message += parts[i] + " ";
+                    }
+                    msg.setMessage(message);
+                } catch(ArrayIndexOutOfBoundsException exception) {
+                    System.out.println("PUBLICMESSAGE MESSAGE_CONTENT");
+                    return null;
+                }
+
+                break;
             default:
                 msg.setType(MessageType.INVALID);
                 break;

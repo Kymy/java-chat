@@ -99,6 +99,13 @@ public class Server implements Runnable {
                     serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
                 }
                 break;
+            case PUBLICMESSAGE:
+                if (serverThread.isIdentified()) {
+                    sendPublicMessage(serverThread, message);
+                } else {
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
+                }
+                break;
         }
     }
 
@@ -189,6 +196,11 @@ public class Server implements Runnable {
             serverThread.send("...MESSAGE SENT");
         }
 
+    }
+
+    public void sendPublicMessage(ServerThread serverThread, Message message) {
+        String msg = message.getMessage();
+        sendMessageToIdentifiedClients(msg);
     }
 
     public ServerThread findServerByUser(String username) {

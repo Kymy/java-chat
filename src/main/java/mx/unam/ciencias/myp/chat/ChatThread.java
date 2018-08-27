@@ -41,7 +41,7 @@ public class ChatThread extends Thread {
             try {
                 client.handle(streamIn.readObject());
             } catch (Exception ioe) {
-                System.out.println("...ERROR: " + ioe.getMessage());
+                System.out.println("...DISCONNECTED");
                 client.stop();
             }
         }
