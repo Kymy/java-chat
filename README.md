@@ -31,7 +31,11 @@ Run `USERS`
 
 ## To send message to identified user 
 
-Run `MESSAGE username`
+Run `MESSAGE username messageContent`
+
+## To send message to all identified users
+
+Run `PUBLICMESSAGE messageContent`
 
 ## To disconnect 
 

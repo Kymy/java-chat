@@ -87,7 +87,9 @@ public class Server implements Runnable {
                 break;
             case STATUS:
                 if (serverThread.isIdentified()) {
-                    setUserStatus(serverThread, message);
+                    if (!setUserStatus(serverThread, message)) {
+                        serverThread.send("...INVALID STATUS\n...POSSIBLE STATUS ARE: ACTIVE, AWAY, BUSY");
+                    }
                 } else {
                     serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
                 }
@@ -105,6 +107,11 @@ public class Server implements Runnable {
                 } else {
                     serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
                 }
+                break;
+            case INVALID:
+                    serverThread.send("...INVALID MESSAGE\n...VALID MESSAGES ARE:\n...CONNECT username"+
+                    "\n...STATUS userStatus = {ACTIVE, AWAY, BUSY}"+ "\n...MESSAGE username messageContent" +
+                    "\n...PUBLICMESSAGE messageContent" + "\n...DISCONNECT");
                 break;
         }
     }
@@ -156,10 +163,17 @@ public class Server implements Runnable {
         System.out.println("...DISCONNECTED " + serverThread.getID());
     }
 
+    public boolean isValidStatus(String status) {
+        return (status.equals("ACTIVE") || status.equals("AWAY") || status.equals("BUSY"));
+    }
 
-    public void setUserStatus(ServerThread serverThread, Message message) {
+
+    public boolean setUserStatus(ServerThread serverThread, Message message) {
         User user = serverThread.getUser();
         String status = message.getMessage();
+        if (!isValidStatus((status))) {
+            return false;
+        }
         switch (status) {
             case "ACTIVE":
                 user.setStatus(UserStatus.ACTIVE);
@@ -176,6 +190,7 @@ public class Server implements Runnable {
         }
         String msg = user.getName() + " " + user.getStatus();
         sendMessageToIdentifiedClients(msg);
+        return true;
     }
 
     public void sendMessageToIdentifiedClients(String message) {
