@@ -57,9 +57,9 @@ public class Chat implements Runnable {
         String [] parts = input.split(" ");
         Message msg = new Message();
         switch (parts[0]) {
-            case "CONNECT":
+            case "IDENTIFY":
                 try {
-                    msg.setType(MessageType.CONNECT);
+                    msg.setType(MessageType.IDENTIFY);
                     msg.setMessage(parts[1]);
                 } catch (ArrayIndexOutOfBoundsException exception) {
                     System.out.println("CONNECT USERNAME");

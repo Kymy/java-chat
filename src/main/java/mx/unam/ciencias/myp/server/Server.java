@@ -71,7 +71,7 @@ public class Server implements Runnable {
     public synchronized void handle(ServerThread serverThread, Object inputObject) {
         Message message = (Message)inputObject;
         switch(message.getType()) {
-            case CONNECT:
+            case IDENTIFY:
                 identifyUser(serverThread, message);
                 break;
             case USERS:
@@ -79,7 +79,7 @@ public class Server implements Runnable {
                 if (serverThread.isIdentified()) {
                     showUsers(serverThread);
                 } else {
-                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFY USERNAME");
                 }
                 break;
             case DISCONNECT:
@@ -91,25 +91,25 @@ public class Server implements Runnable {
                         serverThread.send("...INVALID STATUS\n...POSSIBLE STATUS ARE: ACTIVE, AWAY, BUSY");
                     }
                 } else {
-                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFY USERNAME");
                 }
                 break;
             case MESSAGE:
                 if (serverThread.isIdentified()) {
                     sendMessageToUser(serverThread, message);
                 } else {
-                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFY USERNAME");
                 }
                 break;
             case PUBLICMESSAGE:
                 if (serverThread.isIdentified()) {
                     sendPublicMessage(serverThread, message);
                 } else {
-                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: CONNECT USERNAME");
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
                 }
                 break;
             case INVALID:
-                    serverThread.send("...INVALID MESSAGE\n...VALID MESSAGES ARE:\n...CONNECT username"+
+                    serverThread.send("...INVALID MESSAGE\n...VALID MESSAGES ARE:\n...IDENTIFY username"+
                     "\n...STATUS userStatus = {ACTIVE, AWAY, BUSY}"+ "\n...MESSAGE username messageContent" +
                     "\n...PUBLICMESSAGE messageContent" + "\n...DISCONNECT");
                 break;
