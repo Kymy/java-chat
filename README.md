@@ -19,7 +19,7 @@ Run `mvn exec:java -Dexec.mainClass="mx.unam.ciencias.myp.chat.Chat" -Dexec.args
 
 ## To identify users
 
-Run `CONNECT username` to run the client
+Run `IDENTIFY username` to run the client
 
 ## To set status to users userstatus = {ACTIVE, AWAY, BUSY}
 
