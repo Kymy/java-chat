@@ -62,7 +62,7 @@ public class Chat implements Runnable {
                     msg.setType(MessageType.IDENTIFY);
                     msg.setMessage(parts[1]);
                 } catch (ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("CONNECT USERNAME");
+                    System.out.println("IDENTIFY USERNAME");
                     return null;
                 }
                 break;
@@ -91,7 +91,7 @@ public class Chat implements Runnable {
                     }
                     msg.setMessage(message);
                 } catch(ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("MESSAGE USER MESSAGE_CONTENT");
+                    System.out.println("MESSAGE USERNAME MESSAGE_CONTENT");
                     return null;
                 }
 
@@ -109,6 +109,38 @@ public class Chat implements Runnable {
                     return null;
                 }
 
+                break;
+            case "CREATEROOM":
+                try {
+                    msg.setType(MessageType.CREATEROOM);
+                    msg.setMessage(parts[1]);
+                } catch(ArrayIndexOutOfBoundsException exception) {
+                    System.out.println("CREATEROOM ROOM_NAME");
+                    return null;
+                }
+                break;
+            case "INVITE":
+                try {
+                    msg.setType(MessageType.INVITE);
+                    msg.setToWhom(parts[1]);
+                    String message = "";
+                    for (int i=2; i<parts.length; i++) {
+                        message += parts[i] + " ";
+                    }
+                    msg.setMessage(message);
+                } catch(ArrayIndexOutOfBoundsException exception) {
+                    System.out.println("INVITE ROOMNAME USER1 USER2...");
+                    return null;
+                }
+                break;
+            case "JOINROOM":
+                try {
+                    msg.setType(MessageType.JOINROOM);
+                    msg.setMessage(parts[1]);
+                } catch(ArrayIndexOutOfBoundsException exception) {
+                    System.out.println("JOINROM ROOMNAME");
+                    return null;
+                }
                 break;
             default:
                 msg.setType(MessageType.INVALID);

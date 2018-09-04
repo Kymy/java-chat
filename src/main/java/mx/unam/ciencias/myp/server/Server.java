@@ -10,6 +10,7 @@ public class Server implements Runnable {
     private Thread thread = null;
     ArrayList<ServerThread> listClients = new ArrayList<ServerThread>();
     ArrayList<ServerThread> identifiedClients = new ArrayList<ServerThread>();
+    HashMap<String, Room> rooms = new HashMap<String, Room>();
 
 
     public Server(int port) {
@@ -108,10 +109,28 @@ public class Server implements Runnable {
                     serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
                 }
                 break;
+            case CREATEROOM:
+                if (serverThread.isIdentified()) {
+                    if (!roomNameExists(message.getMessage())) {
+                        createNewRoom(serverThread, message);
+                    } else {
+                        serverThread.send("...ROOM NAME ALREADY IN USE");
+                    }
+                } else {
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
+                }
+                break;
+            case INVITE:
+                if (serverThread.isIdentified()) {
+                   inviteUsersToRoom(serverThread, message);
+                } else {
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
+                }
+                break;
             case INVALID:
                     serverThread.send("...INVALID MESSAGE\n...VALID MESSAGES ARE:\n...IDENTIFY username"+
                     "\n...STATUS userStatus = {ACTIVE, AWAY, BUSY}"+ "\n...MESSAGE username messageContent" +
-                    "\n...PUBLICMESSAGE messageContent" + "\n...DISCONNECT");
+                    "\n...PUBLICMESSAGE messageContent" + "\n...CREATEROOM roomname" + "\n...DISCONNECT");
                 break;
         }
     }
@@ -128,6 +147,60 @@ public class Server implements Runnable {
             serverThread.send("...USERNAME NOT AVAILABLE");
         }
 
+    }
+
+    public void createNewRoom(ServerThread serverThread, Message message) {
+        String roomName = message.getMessage();
+        System.out.println("Se creará una sala con nombre " + roomName);
+        Room newRoom = new Room(roomName, serverThread);
+        rooms.put(roomName, newRoom);
+        serverThread.send("...ROOM CREATED");
+    }
+
+    public void inviteUsersToRoom(ServerThread serverThread, Message message) {
+        String roomName = message.getToWhom();
+        if (roomNameExists(roomName) && isRoomOwnerByUser(roomName, serverThread)) {
+            String ownerName = serverThread.getUser().getName();
+            String [] users = message.getMessage().split(" ");
+            for (int i=0; i<users.length; i++) {
+                String userInvited = users[i];
+                String msg = "...INVITATION TO JOIN " + roomName + " ROOM BY " + ownerName +
+                        "\n...TO JOIN: JOIN " + roomName;
+                sendInvitationToUser(serverThread, userInvited, msg);
+            }
+        } else {
+            serverThread.send("...ROOM NOT EXIST OR YOU ARE NOT THE OWNER");
+        }
+
+    }
+
+    public void sendInvitationToUser(ServerThread serverThread, String toWhom, String message) {
+        ServerThread serverToWhom = findServerByUser(toWhom);
+        if (serverToWhom == null) {
+            serverThread.send("...USER " + toWhom + " NOT FOUND");
+        } else {
+            serverToWhom.send(message);
+            serverThread.send("...INVITATION SENT TO " + serverToWhom.getUser().getName());
+        }
+    }
+
+    public boolean isRoomOwnerByUser(String roomName, ServerThread serverThread) {
+        Room room = this.rooms.get(roomName);
+        ServerThread owner = room.getOwner();
+        if (serverThread == owner) {
+            System.out.println("Es el owner");
+            return true;
+        }
+        System.out.println("NO es el owner");
+        return false;
+    }
+
+    public boolean roomNameExists(String message) {
+       Room exists = this.rooms.get(message);
+       if (exists == null) {
+           return false;
+       }
+       return true;
     }
 
     public boolean isValidUserName(String message) {
@@ -210,7 +283,6 @@ public class Server implements Runnable {
             serverToWhom.send(toSend);
             serverThread.send("...MESSAGE SENT");
         }
-
     }
 
     public void sendPublicMessage(ServerThread serverThread, Message message) {
