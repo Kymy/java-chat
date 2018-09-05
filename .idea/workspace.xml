@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd46d722-50a7-4feb-9aad-49a2dc552c35" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,7 +46,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ChatThread.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="ChatThread.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/ChatThread.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="270">
@@ -73,11 +73,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+          <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/README.md">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+                <state relative-caret-position="427">
+                  <caret line="35" column="39" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
                 </state>
               </provider>
             </entry>
@@ -160,11 +160,11 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/ServerThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/ChatThread.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/MessageType.java" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -671,13 +671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/UserStatus.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -750,6 +743,13 @@
             <element signature="e#395#409#0" expanded="true" />
             <element signature="e#458#472#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="35" column="39" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
         </state>
       </provider>
     </entry>

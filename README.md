@@ -37,6 +37,22 @@ Run `MESSAGE username messageContent`
 
 Run `PUBLICMESSAGE messageContent`
 
+## To create a room
+
+Run `CREATEROOM roomName messageContent`
+
+## To invite users to a room
+
+Run `INVITE roomName user1 user2...`
+
+## To join to an invited room
+
+Run `JOINROOM roomName`
+
+## To send message to room
+
+Run `ROOMESSAGE messageContent`
+
 ## To disconnect 
 
 Run `DISCONENCT`
