@@ -23,12 +23,31 @@ public class Room {
         }
     }
 
+    public String addToRoom(ServerThread serverThread) {
+        if(!connectedGuests.contains(serverThread)) {
+            connectedGuests.add(serverThread);
+            return "...SUCCESFULLY JOINED TO ROOM";
+        }else {
+            return "...ALREADY EXISTS IN ROOM";
+        }
+    }
+
+
     public String getNameRoom() {
         return  this.nameRoom;
     }
 
     public ServerThread getOwner() {
         return this.owner;
+    }
+
+    public boolean isUserInvited(String username) {
+        for (int i=0; i<guests.size(); i++) {
+            if (guests.get(i).equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

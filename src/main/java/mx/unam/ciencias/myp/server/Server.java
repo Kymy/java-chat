@@ -127,10 +127,19 @@ public class Server implements Runnable {
                     serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
                 }
                 break;
+            case JOINROOM:
+                if (serverThread.isIdentified()) {
+                    joinUserToRoom(serverThread, message);
+                } else {
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
+                }
+                break;
             case INVALID:
                     serverThread.send("...INVALID MESSAGE\n...VALID MESSAGES ARE:\n...IDENTIFY username"+
                     "\n...STATUS userStatus = {ACTIVE, AWAY, BUSY}"+ "\n...MESSAGE username messageContent" +
-                    "\n...PUBLICMESSAGE messageContent" + "\n...CREATEROOM roomname" + "\n...DISCONNECT");
+                    "\n...PUBLICMESSAGE messageContent" + "\n...CREATEROOM roomname" + "\n...INVITE roomname user1 user2..."
+                            + "\n...JOIINROOM roomname"
+                            + "\n...DISCONNECT");
                 break;
         }
     }
@@ -157,13 +166,32 @@ public class Server implements Runnable {
         serverThread.send("...ROOM CREATED");
     }
 
+    public void joinUserToRoom(ServerThread serverThread, Message message) {
+        String roomName = message.getMessage();
+        if (roomNameExists(roomName)) {
+            Room room = rooms.get(roomName);
+            String username = serverThread.getUser().getName();
+            if (room.isUserInvited(username)) {
+                String addTo = room.addToRoom(serverThread);
+                serverThread.send(addTo);
+            } else {
+                serverThread.send("...YOU ARE NOT INVITED TO ROOM " + roomName);
+            }
+        } else {
+            serverThread.send("...ROOM NOT EXISTS");
+        }
+
+    }
+
     public void inviteUsersToRoom(ServerThread serverThread, Message message) {
         String roomName = message.getToWhom();
         if (roomNameExists(roomName) && isRoomOwnerByUser(roomName, serverThread)) {
+            Room room = this.rooms.get(roomName);
             String ownerName = serverThread.getUser().getName();
             String [] users = message.getMessage().split(" ");
             for (int i=0; i<users.length; i++) {
                 String userInvited = users[i];
+                room.inviteGuest(userInvited);
                 String msg = "...INVITATION TO JOIN " + roomName + " ROOM BY " + ownerName +
                         "\n...TO JOIN: JOIN " + roomName;
                 sendInvitationToUser(serverThread, userInvited, msg);
@@ -171,7 +199,6 @@ public class Server implements Runnable {
         } else {
             serverThread.send("...ROOM NOT EXIST OR YOU ARE NOT THE OWNER");
         }
-
     }
 
     public void sendInvitationToUser(ServerThread serverThread, String toWhom, String message) {
