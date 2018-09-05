@@ -39,7 +39,7 @@ Run `PUBLICMESSAGE messageContent`
 
 ## To create a room
 
-Run `CREATEROOM roomName messageContent`
+Run `CREATEROOM roomName`
 
 ## To invite users to a room
 
