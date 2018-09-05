@@ -146,7 +146,7 @@ public class Server implements Runnable {
                     "\n...STATUS userStatus = {ACTIVE, AWAY, BUSY}"+ "\n...MESSAGE username messageContent" +
                     "\n...PUBLICMESSAGE messageContent" + "\n...CREATEROOM roomname" + "\n...INVITE roomname user1 user2..."
                             + "\n...JOINROOM roomname"
-                            + "\n...JOINROOM roomname"
+                            + "\n...ROOMESSAGE roomname messageContent"
                             + "\n...DISCONNECT");
                 break;
         }
@@ -183,7 +183,6 @@ public class Server implements Runnable {
 
     public void createNewRoom(ServerThread serverThread, Message message) {
         String roomName = message.getMessage();
-        System.out.println("Se creará una sala con nombre " + roomName);
         Room newRoom = new Room(roomName, serverThread);
         rooms.put(roomName, newRoom);
         serverThread.send("...ROOM CREATED");
@@ -208,19 +207,24 @@ public class Server implements Runnable {
 
     public void inviteUsersToRoom(ServerThread serverThread, Message message) {
         String roomName = message.getToWhom();
-        if (roomNameExists(roomName) && isRoomOwnerByUser(roomName, serverThread)) {
-            Room room = this.rooms.get(roomName);
-            String ownerName = serverThread.getUser().getName();
-            String [] users = message.getMessage().split(" ");
-            for (int i=0; i<users.length; i++) {
-                String userInvited = users[i];
-                room.inviteGuest(userInvited);
-                String msg = "...INVITATION TO JOIN " + roomName + " ROOM BY " + ownerName +
-                        "\n...TO JOIN: JOIN " + roomName;
-                sendInvitationToUser(serverThread, userInvited, msg);
+        if (roomNameExists(roomName)) {
+            if (isRoomOwnerByUser(roomName, serverThread)) {
+                Room room = this.rooms.get(roomName);
+                String ownerName = serverThread.getUser().getName();
+                String [] users = message.getMessage().split(" ");
+                for (int i=0; i<users.length; i++) {
+                    String userInvited = users[i];
+                    room.inviteGuest(userInvited);
+                    String msg = "...INVITATION TO JOIN " + roomName + " ROOM BY " + ownerName +
+                            "\n...TO JOIN: JOIN " + roomName;
+                    sendInvitationToUser(serverThread, userInvited, msg);
+                }
+            } else {
+                serverThread.send("...YOU ARE NOT THE OWNER OF THE ROOM");
             }
+
         } else {
-            serverThread.send("...ROOM NOT EXIST OR YOU ARE NOT THE OWNER");
+            serverThread.send("...ROOM NOT EXIST");
         }
     }
 
@@ -238,10 +242,8 @@ public class Server implements Runnable {
         Room room = this.rooms.get(roomName);
         ServerThread owner = room.getOwner();
         if (serverThread == owner) {
-            System.out.println("Es el owner");
             return true;
         }
-        System.out.println("NO es el owner");
         return false;
     }
 
@@ -312,13 +314,15 @@ public class Server implements Runnable {
                 break;
         }
         String msg = user.getName() + " " + user.getStatus();
-        sendMessageToIdentifiedClients(msg);
+        sendMessageToIdentifiedClients(serverThread, msg);
         return true;
     }
 
-    public void sendMessageToIdentifiedClients(String message) {
+    public void sendMessageToIdentifiedClients(ServerThread serverThread, String message) {
         for (int i = 0; i < identifiedClients.size(); i++) {
-            identifiedClients.get(i).send(message);
+            if (!serverThread.getUser().getName().equals(identifiedClients.get(i).getUser().getName())){
+                identifiedClients.get(i).send(message);
+            }
         }
     }
 
@@ -336,8 +340,9 @@ public class Server implements Runnable {
     }
 
     public void sendPublicMessage(ServerThread serverThread, Message message) {
-        String msg = message.getMessage();
-        sendMessageToIdentifiedClients(msg);
+        String username = serverThread.getUser().getName();
+        String msg = "...PUBLIC-" + username + ": " + message.getMessage();
+        sendMessageToIdentifiedClients(serverThread, msg);
     }
 
     public ServerThread findServerByUser(String username) {
@@ -383,5 +388,4 @@ public class Server implements Runnable {
             clientToRemove.stop();
         }
     }
-
 }
