@@ -138,7 +138,21 @@ public class Chat implements Runnable {
                     msg.setType(MessageType.JOINROOM);
                     msg.setMessage(parts[1]);
                 } catch(ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("JOINROM ROOMNAME");
+                    System.out.println("JOINRO0M ROOM_NAME");
+                    return null;
+                }
+                break;
+            case "ROOMESSAGE":
+                try {
+                    msg.setType(MessageType.ROOMESSAGE);
+                    msg.setToWhom(parts[1]);
+                    String message = "";
+                    for (int i=2; i<parts.length; i++) {
+                        message += parts[i] + " ";
+                    }
+                    msg.setMessage(message);
+                } catch(ArrayIndexOutOfBoundsException exception) {
+                    System.out.println("ROOMESSAGE ROOM_NAME MESSAGE_CONTENT");
                     return null;
                 }
                 break;

@@ -15,6 +15,7 @@ public class Room {
         this.owner = owner;
         this.guests = new ArrayList<String>();
         this.connectedGuests = new ArrayList<ServerThread>();
+        this.connectedGuests.add(owner);
     }
 
     public void inviteGuest(String guestName) {
@@ -32,6 +33,14 @@ public class Room {
         }
     }
 
+    public void sendMessageToGuests(String sender, String message) {
+        for (int i=0; i<connectedGuests.size(); i++) {
+            ServerThread actual = this.connectedGuests.get(i);
+            if (!actual.getUser().getName().equals(sender)) {
+                connectedGuests.get(i).send("..." + nameRoom + "-" + sender + ": " + message);
+            }
+        }
+    }
 
     public String getNameRoom() {
         return  this.nameRoom;
@@ -48,6 +57,10 @@ public class Room {
             }
         }
         return false;
+    }
+
+    public boolean isTheOwner(String username) {
+        return owner.getUser().getName().equals(username);
     }
 
 

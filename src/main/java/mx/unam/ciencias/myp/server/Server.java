@@ -134,11 +134,19 @@ public class Server implements Runnable {
                     serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
                 }
                 break;
+            case ROOMESSAGE:
+                if (serverThread.isIdentified()) {
+                    sendMessageToRoom(serverThread, message);
+                } else {
+                    serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
+                }
+                break;
             case INVALID:
                     serverThread.send("...INVALID MESSAGE\n...VALID MESSAGES ARE:\n...IDENTIFY username"+
                     "\n...STATUS userStatus = {ACTIVE, AWAY, BUSY}"+ "\n...MESSAGE username messageContent" +
                     "\n...PUBLICMESSAGE messageContent" + "\n...CREATEROOM roomname" + "\n...INVITE roomname user1 user2..."
-                            + "\n...JOIINROOM roomname"
+                            + "\n...JOINROOM roomname"
+                            + "\n...JOINROOM roomname"
                             + "\n...DISCONNECT");
                 break;
         }
@@ -155,7 +163,22 @@ public class Server implements Runnable {
         } else {
             serverThread.send("...USERNAME NOT AVAILABLE");
         }
+    }
 
+    public void sendMessageToRoom(ServerThread serverThread, Message message) {
+        String roomName = message.getToWhom();
+        if (roomNameExists(roomName)) {
+            Room room = rooms.get(roomName);
+            String username = serverThread.getUser().getName();
+            if (room.isUserInvited(username) || room.isTheOwner(username)) {
+                room.sendMessageToGuests(username, message.getMessage());
+                serverThread.send("...MESSAGE SENT");
+            } else {
+                serverThread.send("...YOU ARE NOT PART OF THE ROOM");
+            }
+        } else {
+            serverThread.send("...ROOM NOT EXISTS");
+        }
     }
 
     public void createNewRoom(ServerThread serverThread, Message message) {

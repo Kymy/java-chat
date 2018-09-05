@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd46d722-50a7-4feb-9aad-49a2dc552c35" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/MessageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/MessageType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java" afterDir="false" />
     </list>
@@ -17,14 +19,14 @@
     <favorites_list name="Chat" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.28374836">
+    <splitter split-orientation="horizontal" split-proportion="0.39646134">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Chat.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Chat.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="221">
-                  <caret line="139" column="48" selection-start-line="139" selection-start-column="48" selection-end-line="139" selection-end-column="48" />
+                <state relative-caret-position="290">
+                  <caret line="150" column="50" lean-forward="true" selection-start-line="150" selection-start-column="50" selection-end-line="150" selection-end-column="50" />
                 </state>
               </provider>
             </entry>
@@ -65,11 +67,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="MessageType.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="MessageType.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/MessageType.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="45">
-                  <caret line="3" column="102" selection-start-line="3" selection-start-column="102" selection-end-line="3" selection-end-column="102" />
+                <state relative-caret-position="105">
+                  <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
                 </state>
               </provider>
             </entry>
@@ -90,8 +92,8 @@
           <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="424">
-                  <caret line="174" column="38" lean-forward="true" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
+                <state relative-caret-position="281">
+                  <caret line="164" column="9" lean-forward="true" selection-start-line="164" selection-start-column="9" selection-end-line="164" selection-end-column="9" />
                   <folding>
                     <element signature="e#395#409#0" expanded="true" />
                     <element signature="e#458#472#0" expanded="true" />
@@ -103,13 +105,15 @@
           <file leaf-file-name="Room.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+                <state relative-caret-position="396">
+                  <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
                   <folding>
                     <element signature="e#649#650#0" expanded="true" />
                     <element signature="e#686#687#0" expanded="true" />
                     <element signature="e#724#725#0" expanded="true" />
                     <element signature="e#750#751#0" expanded="true" />
+                    <element signature="e#1329#1330#0" expanded="true" />
+                    <element signature="e#1356#1357#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -118,8 +122,8 @@
           <file leaf-file-name="ServerThread.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/ServerThread.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-82">
-                  <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+                <state relative-caret-position="517">
+                  <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
                 </state>
               </provider>
             </entry>
@@ -142,8 +146,8 @@
       <find>start</find>
       <find>CONNECT</find>
       <find>open</find>
-      <find>console</find>
       <find>handle</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -351,18 +355,18 @@
     <layout>
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="bottom" id="TODO" order="4" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4952381" weight="0.28947368" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4940476" weight="0.28947368" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.0875" side_tool="true" visible="true" weight="0.18105263" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50595236" side_tool="true" weight="0.28947368" />
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.9125" visible="true" weight="0.18105263" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.9125" visible="true" weight="0.18105263" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49614397" visible="true" weight="0.09166667" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49614397" visible="true" weight="0.09166667" />
       <window_info id="Structure" order="1" sideWeight="0.5031579" side_tool="true" weight="0.24940476" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="6" />
@@ -703,48 +707,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/MessageType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="102" selection-start-line="3" selection-start-column="102" selection-end-line="3" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="139" column="48" selection-start-line="139" selection-start-column="48" selection-end-line="139" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/ServerThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-82">
-          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+        <state relative-caret-position="517">
+          <caret line="65" column="5" lean-forward="true" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+        <state relative-caret-position="396">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
           <folding>
             <element signature="e#649#650#0" expanded="true" />
             <element signature="e#686#687#0" expanded="true" />
             <element signature="e#724#725#0" expanded="true" />
             <element signature="e#750#751#0" expanded="true" />
+            <element signature="e#1329#1330#0" expanded="true" />
+            <element signature="e#1356#1357#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="150" column="50" lean-forward="true" selection-start-line="150" selection-start-column="50" selection-end-line="150" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="174" column="38" lean-forward="true" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
+        <state relative-caret-position="281">
+          <caret line="164" column="9" lean-forward="true" selection-start-line="164" selection-start-column="9" selection-end-line="164" selection-end-column="9" />
           <folding>
             <element signature="e#395#409#0" expanded="true" />
             <element signature="e#458#472#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/MessageType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>
