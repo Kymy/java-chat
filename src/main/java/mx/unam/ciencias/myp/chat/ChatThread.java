@@ -8,19 +8,21 @@ public class ChatThread extends Thread {
 
     private Socket socket;
     private Chat client;
-    private ObjectInputStream streamIn = null;
+    private BufferedReader in;
 
 
-    public ChatThread(Chat _client, Socket _socket) {
-        client = _client;
-        socket = _socket;
+    public ChatThread(Chat client, Socket socket) {
+        this.client = client;
+        this.socket = socket;
         open();
-        start();
     }
 
     public void open() {
         try {
-            streamIn = new ObjectInputStream(socket.getInputStream());
+            in =
+                new BufferedReader(
+                    new InputStreamReader(
+                        socket.getInputStream()));
         } catch (IOException ioe) {
             System.out.println("...ERROR: " + ioe);
             client.stop();
@@ -29,23 +31,21 @@ public class ChatThread extends Thread {
 
     public void close() {
         try {
-            if (streamIn != null)
-                streamIn.close();
+            if (in != null)
+                in.close();
         } catch ( IOException ioe) {
             System.out.println("...ERROR: " + ioe);
         }
     }
 
     public void run() {
-        while (true) {
-            try {
-                client.handle(streamIn.readObject());
-            } catch (Exception ioe) {
-                System.out.println("...DISCONNECTED");
-                client.stop();
-            }
+        String line;
+        try {
+            while ((line = in.readLine()) != null)
+                System.out.println(line);
+        } catch (Exception ioe) {
+            System.out.println("...DISCONNECTED");
+            client.stop();
         }
     }
-
-
 }
