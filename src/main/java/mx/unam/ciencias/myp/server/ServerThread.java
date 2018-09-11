@@ -8,8 +8,8 @@ public class ServerThread extends Thread {
     private Server server;
     private Socket socket;
     private int ID;
-    private ObjectInputStream streamIn = null;
-    private ObjectOutputStream streamOut = null;
+    private BufferedReader in;
+    private BufferedWriter out;
     private User user;
 
     public ServerThread(Server _server, Socket _socket) {
@@ -24,28 +24,33 @@ public class ServerThread extends Thread {
     }
 
     public void open() throws IOException {
-        streamIn = new ObjectInputStream(socket.getInputStream());
-        streamOut = new ObjectOutputStream(socket.getOutputStream());
+        in =
+            new BufferedReader(
+                new InputStreamReader(
+                    socket.getInputStream()));
+        out =
+            new BufferedWriter(
+                new OutputStreamWriter(
+                    socket.getOutputStream()));
     }
 
-    public void close() throws IOException {
-        if (socket != null)
-            socket.close();
-        if (streamIn != null)
-            streamIn.close();
-        if (streamOut != null)
-            streamOut.close();
+    public void close() {
+        try {
+            if (socket != null)
+                socket.close();
+        } catch (IOException ioe) {
+            System.err.println("...ERROR CLOSING SERVER THREAD.");
+        }
     }
 
-    public void run() {
-        while (true) {
-            try {
-                server.handle(this, streamIn.readObject());
-            } catch (Exception ioe) {
-                System.out.println("...ERROR READING " + ioe.getMessage());
-                server.remove(ID);
-                stop();
-            }
+    @Override public void run() {
+        String line;
+        try {
+            while ((line = in.readLine()) != null)
+                server.handle(this, line);
+        } catch (Exception ioe) {
+            System.err.println("...ERROR READING: " + ioe.getMessage());
+            server.remove(ID);
         }
     }
 
@@ -67,13 +72,13 @@ public class ServerThread extends Thread {
 
     public void send(String msg) {
         try {
-            streamOut.writeObject(msg);
-            streamOut.flush();
+            out.write(msg);
+            out.newLine();
+            out.flush();
         } catch (IOException ioe) {
-            System.out.println(ID + "...ERROR " + ioe.getMessage());
+            System.err.println(ID + "...ERROR: " + ioe.getMessage());
             server.remove(ID);
-            stop();
+            close();
         }
     }
-
 }
