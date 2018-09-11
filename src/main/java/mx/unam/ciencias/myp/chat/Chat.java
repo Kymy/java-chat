@@ -3,209 +3,74 @@ package mx.unam.ciencias.myp.chat;
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
 import mx.unam.ciencias.myp.server.Message;
 import mx.unam.ciencias.myp.server.MessageType;
 
 
 
-public class Chat implements Runnable {
+public class Chat {
 
-    private Socket socket = null;
-    private DataInputStream console = null;
-    private ObjectOutputStream streamOut = null;
-    private Thread thread = null;
-    private ChatThread client = null;
-    public PriorityQueue<String> messages;
-
+    private Socket socket;
+    private Scanner scanner;
+    private BufferedWriter out;
+    private Thread thread;
+    private ChatThread client;
+    private boolean keepRunning;
 
     public Chat(String serverName, int serverPort) {
-        System.out.println("...STARTING CONNECTION");
+        System.err.println("...STARTING CONNECTION");
         try {
             socket = new Socket(serverName, serverPort);
-            messages = new PriorityQueue<String>();
-            System.out.println("...CONNECTED");
-            start();
-
+            System.err.println("...CONNECTED");
         } catch (UnknownHostException uhe) {
-            System.out.println("...IP ADDRESS UNKNOW: " + uhe.getMessage());
+            System.err.println("...IP ADDRESS UNKNOW: " + uhe.getMessage());
         } catch (IOException ioe) {
-            System.out.println("...ERROR: " + ioe.getMessage());
+            System.err.println("...ERROR: " + ioe.getMessage());
         }
     }
 
-
-    public void run() {
-        Object message;
-        while (thread !=null) {
-            try {
-                message = console.readLine();
-                Message msg = createMessage((String) message);
-                if (msg != null ) {
-                    streamOut.writeObject(msg);
-                    streamOut.flush();
+    public void start() {
+        client = new ChatThread(this, socket);
+        client.start();
+        scanner = new Scanner(System.in);
+        try {
+            out =
+                new BufferedWriter(
+                    new OutputStreamWriter(
+                        socket.getOutputStream()));
+            keepRunning = true;
+            while (keepRunning) {
+                String line = scanner.nextLine();
+                if (line.equals("QUIT")) {
+                    keepRunning = false;
+                    continue;
                 }
-            } catch (IOException ioe) {
-                System.out.println("...ERROR TO SEND: " + ioe.getMessage());
-                stop();
+                Message message = new Message(line);
+                if (message.getType() != MessageType.INVALID) {
+                    out.write(message.toString());
+                    out.newLine();
+                    out.flush();
+                }
             }
-
-        }
-
-    }
-
-    public Message createMessage(String input) {
-        String [] parts = input.split(" ");
-        Message msg = new Message();
-        switch (parts[0]) {
-            case "IDENTIFY":
-                try {
-                    msg.setType(MessageType.IDENTIFY);
-                    msg.setMessage(parts[1]);
-                } catch (ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("IDENTIFY USERNAME");
-                    return null;
-                }
-                break;
-            case "USERS":
-                msg.setType(MessageType.USERS);
-                break;
-            case "DISCONNECT":
-                msg.setType(MessageType.DISCONNECT);
-                break;
-            case "STATUS":
-                try {
-                    msg.setType(MessageType.STATUS);
-                    msg.setMessage(parts[1]);
-                } catch (ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("STATUS ACTIVE/BUSY/AWAY");
-                    return null;
-                }
-                break;
-            case "MESSAGE":
-                try {
-                    msg.setType(MessageType.MESSAGE);
-                    msg.setToWhom(parts[1]);
-                    String message = "";
-                    for (int i=2; i<parts.length; i++) {
-                        message += parts[i] + " ";
-                    }
-                    msg.setMessage(message);
-                } catch(ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("MESSAGE USERNAME MESSAGE_CONTENT");
-                    return null;
-                }
-
-                break;
-            case "PUBLICMESSAGE":
-                try {
-                    msg.setType(MessageType.PUBLICMESSAGE);
-                    String message = "";
-                    for (int i=1; i<parts.length; i++) {
-                        message += parts[i] + " ";
-                    }
-                    msg.setMessage(message);
-                } catch(ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("PUBLICMESSAGE MESSAGE_CONTENT");
-                    return null;
-                }
-
-                break;
-            case "CREATEROOM":
-                try {
-                    msg.setType(MessageType.CREATEROOM);
-                    msg.setMessage(parts[1]);
-                } catch(ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("CREATEROOM ROOM_NAME");
-                    return null;
-                }
-                break;
-            case "INVITE":
-                try {
-                    msg.setType(MessageType.INVITE);
-                    msg.setToWhom(parts[1]);
-                    String message = "";
-                    for (int i=2; i<parts.length; i++) {
-                        message += parts[i] + " ";
-                    }
-                    msg.setMessage(message);
-                } catch(ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("INVITE ROOMNAME USER1 USER2...");
-                    return null;
-                }
-                break;
-            case "JOINROOM":
-                try {
-                    msg.setType(MessageType.JOINROOM);
-                    msg.setMessage(parts[1]);
-                } catch(ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("JOINRO0M ROOM_NAME");
-                    return null;
-                }
-                break;
-            case "ROOMESSAGE":
-                try {
-                    msg.setType(MessageType.ROOMESSAGE);
-                    msg.setToWhom(parts[1]);
-                    String message = "";
-                    for (int i=2; i<parts.length; i++) {
-                        message += parts[i] + " ";
-                    }
-                    msg.setMessage(message);
-                } catch(ArrayIndexOutOfBoundsException exception) {
-                    System.out.println("ROOMESSAGE ROOM_NAME MESSAGE_CONTENT");
-                    return null;
-                }
-                break;
-            default:
-                msg.setType(MessageType.INVALID);
-                break;
-        }
-        return msg;
-    }
-
-    public void handle(Object input) {
-        String message = (String)input;
-        messages.add(message);
-        System.out.println(message);
-    }
-
-    public void start() throws IOException {
-        console = new DataInputStream(System.in);
-        streamOut = new ObjectOutputStream(socket.getOutputStream());
-
-        if (thread == null) {
-            client = new ChatThread(this, socket);
-            thread = new Thread(this);
-            thread.start();
+        } catch (IOException ioe) {
+            System.err.println("...ERROR " + ioe.getMessage());
         }
     }
 
     public void stop() {
-        if (thread != null) {
-            thread.stop();
-            thread = null;
-        }
-        try {
-            if(console != null)
-                console.close();
-            if(streamOut != null)
-                streamOut.close();
-            if(socket != null)
-                socket.close();
-        } catch (IOException ioe) {
-            System.out.println("...ERROR TO CLOSE");
-        }
-
-        client.close();
-        client.stop();
+        if (client != null)
+            client.close();
+        keepRunning = false;
     }
 
     public static void main(String args[]) {
         Chat client = null;
-        if (args.length != 2)
-            System.out.println("java ChatClient host port");
-        else
+        if (args.length != 2) {
+            System.err.println("java ChatClient host port");
+        } else {
             client = new Chat(args[0], Integer.parseInt(args[1]));
+            client.start();
+        }
     }
-
 }
