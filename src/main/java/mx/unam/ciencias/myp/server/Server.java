@@ -4,79 +4,71 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class Server implements Runnable {
+public class Server {
 
-    private ServerSocket server = null; //Socket associated mx.unam.ciencias.myp.server
-    private Thread thread = null;
-    ArrayList<ServerThread> listClients = new ArrayList<ServerThread>();
-    ArrayList<ServerThread> identifiedClients = new ArrayList<ServerThread>();
-    HashMap<String, Room> rooms = new HashMap<String, Room>();
+    private boolean keepRunning;
+    private ServerSocket server; //Socket associated mx.unam.ciencias.myp.server
+    private ArrayList<ServerThread> listClients = new ArrayList<ServerThread>();
+    private ArrayList<ServerThread> identifiedClients = new ArrayList<ServerThread>();
+    private HashMap<String, Room> rooms = new HashMap<String, Room>();
 
 
     public Server(int port) {
         try {
             server = new ServerSocket(port);
-            System.out.println("...SERVER OK");
+            System.err.println("...SERVER OK");
             start();
         } catch (IOException ioe) {
-            System.out.println("...ERROR: " + port + ": "
+            System.err.println("...ERROR: " + port + ": "
                     + ioe.getMessage());
         }
     }
 
     public void start() {
-        if (thread == null) {
-            thread = new Thread(this);
-            thread.start();
-        }
-    }
-
-    public void stop() {
-        if (thread != null) {
-            thread.stop();
-            thread = null;
-        }
-    }
-
-    public void run() {
-        while (thread != null) {
+        keepRunning = true;
+        while (keepRunning) {
             try {
-                addThread(server.accept());
+                addServerThread(server.accept());
             } catch (IOException ioe) {
-                System.out.println("...ERROR: " + ioe);
+                System.err.println("...ERROR: " + ioe);
                 stop();
             }
         }
     }
 
-    private void addThread(Socket socket) {
-        ServerThread newClient = new ServerThread(this, socket);
-        listClients.add(newClient);
-        System.out.println("...CLIENT ACCEPTED");
+    public void stop() {
+        keepRunning = false;
+    }
+
+    private void addServerThread(Socket socket) {
+        ServerThread client = new ServerThread(this, socket);
+        listClients.add(client);
+        System.err.println("...CLIENT ACCEPTED");
         try {
-            newClient.open();
-            newClient.start();
+            client.open();
+            client.start();
         } catch (IOException ioe) {
-            System.out.println("...ERROR TO OPEN THREAD: " + ioe);
+            System.err.println("...ERROR TO OPEN THREAD: " + ioe);
         }
     }
 
     public static void main(String args[]) {
         Server server = null;
         if (args.length != 1)
-            System.out.println("java Server port");
+            System.err.println("java Server port");
         else
             server = new Server(Integer.parseInt(args[0]));
     }
 
-    public synchronized void handle(ServerThread serverThread, Object inputObject) {
-        Message message = (Message)inputObject;
+    public synchronized void handle(ServerThread serverThread,
+                                    String line) {
+        Message message = new Message(line);
         switch(message.getType()) {
             case IDENTIFY:
                 identifyUser(serverThread, message);
                 break;
             case USERS:
-                System.out.println("USERS");
+                System.err.println("USERS");
                 if (serverThread.isIdentified()) {
                     showUsers(serverThread);
                 } else {
@@ -279,13 +271,8 @@ public class Server implements Runnable {
     }
 
     public void closeClient(ServerThread serverThread) {
-        try {
-            serverThread.close();
-        } catch (IOException ioe) {
-            System.out.println("...ERROR " + ioe);
-        }
-        serverThread.stop();
-        System.out.println("...DISCONNECTED " + serverThread.getID());
+        serverThread.close();
+        System.err.println("...DISCONNECTED " + serverThread.getID());
     }
 
     public boolean isValidStatus(String status) {
@@ -377,15 +364,9 @@ public class Server implements Runnable {
     public synchronized void remove(int ID) {
         ServerThread clientToRemove = findClient(ID);
         if (clientToRemove != null) {
-            int index = findIndexClient(ID);
-            System.out.println("...REMOVING CLIENT: " + ID);
-            listClients.remove(index);
-            try {
-                clientToRemove.close();
-            } catch (IOException ioe) {
-                System.out.println("...ERROR: " + ioe);
-            }
-            clientToRemove.stop();
+            System.err.println("...REMOVING CLIENT: " + ID);
+            listClients.remove(clientToRemove);
+            clientToRemove.close();
         }
     }
 }
