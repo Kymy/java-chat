@@ -8,92 +8,98 @@ public class Message {
 
     public Message(String line) {
         String[] parts = line.split(" ");
-        switch (parts[0]) {
-        case "IDENTIFY":
-            if (parts.length < 2) {
-                setType(MessageType.INVALID);
-                System.err.println("IDENTIFY USERNAME");
-            } else {
-                setType(MessageType.IDENTIFY);
-                setMessage(parts[1]);
-            }
-            break;
-        case "USERS":
-            setType(MessageType.USERS);
-            break;
-        case "DISCONNECT":
-            setType(MessageType.DISCONNECT);
-            break;
-        case "STATUS":
-            if (parts.length < 2) {
-                setType(MessageType.INVALID);
-                System.err.println("STATUS ACTIVE/BUSY/AWAY");
-            } else {
-                setType(MessageType.STATUS);
-                setMessage(parts[1]);
-            }
-            break;
-        case "MESSAGE":
-            if (parts.length < 3) {
-                setType(MessageType.INVALID);
-                System.err.println("MESSAGE USERNAME MESSAGE_CONTENT");
-            } else {
-                setType(MessageType.MESSAGE);
-                setToWhom(parts[1]);
-                setMessage(concatMessage(parts, 2));
-            }
-            break;
-        case "PUBLICMESSAGE":
-            if (parts.length < 2) {
-                setType(MessageType.INVALID);
-                System.err.println("PUBLICMESSAGE MESSAGE_CONTENT");
-            } else {
-                setType(MessageType.PUBLICMESSAGE);
-                setMessage(concatMessage(parts, 1));
-            }
-            break;
-        case "CREATEROOM":
-            if (parts.length < 2) {
-                setType(MessageType.INVALID);
-                System.err.println("CREATEROOM ROOM_NAME");
-            } else {
-                setType(MessageType.CREATEROOM);
-                setMessage(parts[1]);
-            }
-            break;
-        case "INVITE":
-            if (parts.length < 3) {
-                setType(MessageType.INVALID);
-                System.err.println("INVITE ROOMNAME USER1 USER2...");
-            } else {
-                setType(MessageType.INVITE);
-                setToWhom(parts[1]);
-                setMessage(concatMessage(parts, 2));
-            }
-            break;
-        case "JOINROOM":
-            if (parts.length < 2) {
-                setType(MessageType.INVALID);
-                System.err.println("JOINROOM ROOM_NAME");
-            } else {
-                setType(MessageType.JOINROOM);
-                setMessage(parts[1]);
-            }
-            break;
-        case "ROOMESSAGE":
-            if (parts.length < 3) {
-                setType(MessageType.INVALID);
-                System.err.println("ROOMESSAGE ROOM_NAME MESSAGE_CONTENT");
-            } else {
-                setType(MessageType.ROOMESSAGE);
-                setToWhom(parts[1]);
-                setMessage(concatMessage(parts, 2));
-            }
-            break;
-        default:
+        if (parts.length == 0) {
             setType(MessageType.INVALID);
-            break;
+        } else {
+            switch (parts[0]) {
+                case "IDENTIFY":
+                    if (parts.length < 2) {
+                        setType(MessageType.INVALID);
+                        System.err.println("IDENTIFY USERNAME");
+                    } else {
+                        setType(MessageType.IDENTIFY);
+                        setMessage(parts[1]);
+                    }
+                    break;
+                case "USERS":
+                    setType(MessageType.USERS);
+                    break;
+                case "DISCONNECT":
+                    setType(MessageType.DISCONNECT);
+                    break;
+                case "STATUS":
+                    if (parts.length < 2) {
+                        setType(MessageType.INVALID);
+                        System.err.println("STATUS ACTIVE/BUSY/AWAY");
+                    } else {
+                        setType(MessageType.STATUS);
+                        setMessage(parts[1]);
+                    }
+                    break;
+                case "MESSAGE":
+                    if (parts.length < 3) {
+                        setType(MessageType.INVALID);
+                        System.err.println("MESSAGE USERNAME MESSAGE_CONTENT");
+                    } else {
+                        setType(MessageType.MESSAGE);
+                        setToWhom(parts[1]);
+                        setMessage(concatMessage(parts, 2));
+                    }
+                    break;
+                case "PUBLICMESSAGE":
+                    if (parts.length < 2) {
+                        setType(MessageType.INVALID);
+                        System.err.println("PUBLICMESSAGE MESSAGE_CONTENT");
+                    } else {
+                        setType(MessageType.PUBLICMESSAGE);
+                        setMessage(concatMessage(parts, 1));
+                    }
+                    break;
+                case "CREATEROOM":
+                    if (parts.length < 2) {
+                        setType(MessageType.INVALID);
+                        System.err.println("CREATEROOM ROOM_NAME");
+                    } else {
+                        setType(MessageType.CREATEROOM);
+                        setMessage(parts[1]);
+                    }
+                    break;
+                case "INVITE":
+                    if (parts.length < 3) {
+                        setType(MessageType.INVALID);
+                        System.err.println("INVITE ROOMNAME USER1 USER2...");
+                    } else {
+                        setType(MessageType.INVITE);
+                        setToWhom(parts[1]);
+                        setMessage(concatMessage(parts, 2));
+                    }
+                    break;
+                case "JOINROOM":
+                    if (parts.length < 2) {
+                        setType(MessageType.INVALID);
+                        System.err.println("JOINROOM ROOM_NAME");
+                    } else {
+                        setType(MessageType.JOINROOM);
+                        setMessage(parts[1]);
+                    }
+                    break;
+                case "ROOMESSAGE":
+                    if (parts.length < 3) {
+                        setType(MessageType.INVALID);
+                        System.err.println("ROOMESSAGE ROOM_NAME MESSAGE_CONTENT");
+                    } else {
+                        setType(MessageType.ROOMESSAGE);
+                        setToWhom(parts[1]);
+                        setMessage(concatMessage(parts, 2));
+                    }
+                    break;
+                default:
+                    setType(MessageType.INVALID);
+                    break;
+            }
+
         }
+
     }
 
     public MessageType getType() {

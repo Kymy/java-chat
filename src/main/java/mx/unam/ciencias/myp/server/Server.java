@@ -43,7 +43,7 @@ public class Server {
     private void addServerThread(Socket socket) {
         ServerThread client = new ServerThread(this, socket);
         listClients.add(client);
-        System.err.println("...CLIENT ACCEPTED");
+        System.out.println("...CLIENT ACCEPTED");
         try {
             client.open();
             client.start();
@@ -146,7 +146,9 @@ public class Server {
 
     public void identifyUser(ServerThread serverThread, Message message) {
         String userName = message.getMessage();
-        if (isValidUserName(userName)) {
+        if (serverThread.getUser() != null) {
+            serverThread.send("...ALREADY IDENTIFIED");
+        } else if (isValidUserName(userName)) {
             User user = new User();
             user.setName(message.getMessage());
             serverThread.setUser(user);
@@ -353,13 +355,6 @@ public class Server {
         return null;
     }
 
-    private int findIndexClient(int ID) {
-        for (int i = 0; i < listClients.size(); i++) {
-            if (listClients.get(i).getID() == ID)
-                return i;
-        }
-        return -1;
-    }
 
     public synchronized void remove(int ID) {
         ServerThread clientToRemove = findClient(ID);

@@ -14,7 +14,6 @@ public class Chat {
     private Socket socket;
     private Scanner scanner;
     private BufferedWriter out;
-    private Thread thread;
     private ChatThread client;
     private boolean keepRunning;
 
@@ -42,16 +41,14 @@ public class Chat {
             keepRunning = true;
             while (keepRunning) {
                 String line = scanner.nextLine();
-                if (line.equals("QUIT")) {
-                    keepRunning = false;
-                    continue;
-                }
                 Message message = new Message(line);
-                if (message.getType() != MessageType.INVALID) {
-                    out.write(message.toString());
-                    out.newLine();
-                    out.flush();
+                out.write(message.toString());
+                out.newLine();
+                out.flush();
+                if (message.getType() == MessageType.DISCONNECT) {
+                    stop();
                 }
+
             }
         } catch (IOException ioe) {
             System.err.println("...ERROR " + ioe.getMessage());
