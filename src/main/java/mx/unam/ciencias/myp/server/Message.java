@@ -6,6 +6,10 @@ public class Message {
     private String message = "";
     private String toWhom;
 
+    /**
+     * Initialize the MessageType, the content of the message and the receiver
+     * @param line is a string that contains different data, depending of the type of message to construct
+     */
     public Message(String line) {
         String[] parts = line.split(" ");
         if (parts.length == 0) {

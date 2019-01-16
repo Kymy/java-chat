@@ -42,9 +42,6 @@ public class Room {
         }
     }
 
-    public String getNameRoom() {
-        return  this.nameRoom;
-    }
 
     public ServerThread getOwner() {
         return this.owner;
