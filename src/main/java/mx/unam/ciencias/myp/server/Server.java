@@ -91,7 +91,7 @@ public class Server {
             case STATUS:
                 if (serverThread.isIdentified()) {
                     if (!setUserStatus(serverThread, message)) {
-                        serverThread.send("...INVALID STATUS\n...POSSIBLE STATUS ARE: ACTIVE, AWAY, BUSY");
+                        serverThread.send("...INVALID_STATUS\n...VALID_STATUS_ARE: ACTIVE, AWAY, BUSY");
                     }
                 } else {
                     serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFY USERNAME");
@@ -314,7 +314,8 @@ public class Server {
                 user.setStatus(UserStatus.ACTIVE);
                 break;
         }
-        String msg = user.getName() + " " + user.getStatus();
+        serverThread.send("...STATUS_CHANGED " + status);
+        String msg = "...STATUS_CHANGED_FROM "  + user.getName() + " TO " + status;
         sendMessageToIdentifiedClients(serverThread, msg);
         return true;
     }
