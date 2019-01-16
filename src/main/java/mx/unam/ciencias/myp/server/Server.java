@@ -343,7 +343,8 @@ public class Server {
 
     public void sendPublicMessage(ServerThread serverThread, Message message) {
         String username = serverThread.getUser().getName();
-        String msg = "...PUBLIC-" + username + ": " + message.getMessage();
+        serverThread.send("...PUBLIC_MESSAGE_SENT");
+        String msg = "...PUBLIC_MESSAGE_FROM " + username + ": " + message.getMessage();
         sendMessageToIdentifiedClients(serverThread, msg);
     }
 
