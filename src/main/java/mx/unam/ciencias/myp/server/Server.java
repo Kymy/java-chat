@@ -221,26 +221,26 @@ public class Server {
                 for (int i=0; i<users.length; i++) {
                     String userInvited = users[i];
                     room.inviteGuest(userInvited);
-                    String msg = "...INVITATION TO JOIN " + roomName + " ROOM BY " + ownerName +
-                            "\n...TO JOIN: JOIN " + roomName;
+                    String msg = "...INVITATION_TO_JOIN " + roomName + " ROOM_BY " + ownerName +
+                            "\n...TO JOIN: JOINROOM " + roomName;
                     sendInvitationToUser(serverThread, userInvited, msg);
                 }
             } else {
-                serverThread.send("...YOU ARE NOT THE OWNER OF THE ROOM");
+                serverThread.send("...YOU_ARE_NOT_THE_OWNER_OF_THE_ROOM");
             }
 
         } else {
-            serverThread.send("...ROOM NOT EXIST");
+            serverThread.send("...ROOM_DOES_NOT_EXIST");
         }
     }
 
     public void sendInvitationToUser(ServerThread serverThread, String toWhom, String message) {
         ServerThread serverToWhom = findServerByUser(toWhom);
         if (serverToWhom == null) {
-            serverThread.send("...USER " + toWhom + " NOT FOUND");
+            serverThread.send("...USER_NOT_FOUND " + toWhom);
         } else {
             serverToWhom.send(message);
-            serverThread.send("...INVITATION SENT TO " + serverToWhom.getUser().getName());
+            serverThread.send("...INVITATION_SENT_TO " + serverToWhom.getUser().getName());
         }
     }
 

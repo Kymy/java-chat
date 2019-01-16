@@ -17,6 +17,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Room.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Chat.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -38,8 +47,8 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="90" column="24" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
+            <state relative-caret-position="352">
+              <caret line="226" column="17" lean-forward="true" selection-start-line="226" selection-start-column="17" selection-end-line="226" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -89,13 +98,14 @@
       <find>DISCONNECTED</find>
       <find>Invalid</find>
       <find>thread</find>
-      <find />
+      <find>Invalid message.</find>
       <find>concan</find>
       <find>keepRunnin</find>
       <find>stop</find>
       <find>line</find>
       <find>PUBLIC</find>
       <find>PUBLICMES</find>
+      <find>INVIT</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -320,16 +330,16 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.35714287" side_tool="true" weight="0.23157895" />
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.64285713" weight="0.23157895" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.64285713" visible="true" weight="0.23157895" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8115789" visible="true" weight="0.15595238" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8109589" visible="true" weight="0.15595238" />
       <window_info id="Structure" order="1" sideWeight="0.5031579" side_tool="true" weight="0.24940476" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="6" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info id="Favorites" order="3" sideWeight="0.18842106" side_tool="true" visible="true" weight="0.15595238" />
+      <window_info id="Favorites" order="3" sideWeight="0.1890411" side_tool="true" visible="true" weight="0.15595238" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.21789473" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -652,13 +662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/ChatThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
@@ -687,10 +690,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="90" column="24" selection-start-line="90" selection-start-column="24" selection-end-line="90" selection-end-column="24" />
+        <state relative-caret-position="352">
+          <caret line="226" column="17" lean-forward="true" selection-start-line="226" selection-start-column="17" selection-end-line="226" selection-end-column="17" />
         </state>
       </provider>
     </entry>
