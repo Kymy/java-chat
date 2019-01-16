@@ -333,11 +333,11 @@ public class Server {
         String msg = message.getMessage();
         ServerThread serverToWhom = findServerByUser(toWhom);
         if (serverToWhom == null) {
-            serverThread.send("...USER " + toWhom + " NOT FOUND");
+            serverThread.send("...USER_NOT_FOUND " + toWhom);
         } else {
-            String toSend = serverThread.getUser().getName() + ": " + msg;
-            serverToWhom.send(toSend);
-            serverThread.send("...MESSAGE SENT");
+            String msgToSend = "...MESSAGE_FROM " +serverThread.getUser().getName() + ": " + msg;
+            serverToWhom.send(msgToSend);
+            serverThread.send("...MESSAGE_SENT");
         }
     }
 
