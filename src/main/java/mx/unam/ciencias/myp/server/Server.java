@@ -116,7 +116,7 @@ public class Server {
                     if (!roomNameExists(message.getMessage())) {
                         createNewRoom(serverThread, message);
                     } else {
-                        serverThread.send("...ROOM NAME ALREADY IN USE");
+                        serverThread.send("...ROOM_NAME_ALREADY_IN_USE");
                     }
                 } else {
                     serverThread.send("...MUST IDENTIFY FIRST\n...TO IDENTIFY: IDENTIFYUSERNAME");
@@ -191,7 +191,7 @@ public class Server {
         String roomName = message.getMessage();
         Room newRoom = new Room(roomName, serverThread);
         rooms.put(roomName, newRoom);
-        serverThread.send("...ROOM CREATED");
+        serverThread.send("...ROOM_CREATED");
     }
 
     public void joinUserToRoom(ServerThread serverThread, Message message) {
