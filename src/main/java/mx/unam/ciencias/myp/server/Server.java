@@ -157,15 +157,17 @@ public class Server {
     public void identifyUser(ServerThread serverThread, Message message) {
         String userName = message.getMessage();
         if (serverThread.getUser() != null) {
-            serverThread.send("...ALREADY IDENTIFIED");
+            serverThread.send("...ALREADY_IDENTIFIED");
         } else if (isValidUserName(userName)) {
             User user = new User();
             user.setName(message.getMessage());
             serverThread.setUser(user);
             identifiedClients.add(serverThread);
-            serverThread.send("...SUCCESSFUL IDENTIFICATION");
+            serverThread.send("...SUCCESSFULLY_IDENTIFIED");
+            String msgToAll = "...USER_CONNECTED " + userName;
+            sendMessageToIdentifiedClients(serverThread, msgToAll);
         } else {
-            serverThread.send("...USERNAME NOT AVAILABLE");
+            serverThread.send("...USERNAME_NOT_AVAILABLE");
         }
     }
 
