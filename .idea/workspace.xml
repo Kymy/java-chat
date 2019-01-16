@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd46d722-50a7-4feb-9aad-49a2dc552c35" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -17,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Room.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Room.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+            <state relative-caret-position="498">
+              <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -44,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="226" column="17" lean-forward="true" selection-start-line="226" selection-start-column="17" selection-end-line="226" selection-end-column="17" />
+            <state relative-caret-position="337">
+              <caret line="177" column="63" lean-forward="true" selection-start-line="177" selection-start-column="63" selection-end-line="177" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -106,6 +107,10 @@
       <find>PUBLIC</find>
       <find>PUBLICMES</find>
       <find>INVIT</find>
+      <find>JOI</find>
+      <find>SUCCES</find>
+      <find>ROOM_</find>
+      <find>ROOM</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -124,10 +129,10 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Message.java" />
-        <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/MessageType.java" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/ChatThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java" />
+        <option value="$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java" />
       </list>
     </option>
   </component>
@@ -319,7 +324,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1024" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="bottom" id="TODO" order="4" />
@@ -330,16 +334,16 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.35714287" side_tool="true" weight="0.23157895" />
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.64285713" visible="true" weight="0.23157895" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.64285713" visible="true" weight="0.22947368" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Designer" order="4" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8109589" visible="true" weight="0.15595238" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8114754" visible="true" weight="0.15595238" />
       <window_info id="Structure" order="1" sideWeight="0.5031579" side_tool="true" weight="0.24940476" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="6" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info id="Favorites" order="3" sideWeight="0.1890411" side_tool="true" visible="true" weight="0.15595238" />
+      <window_info id="Favorites" order="3" sideWeight="0.18852459" side_tool="true" visible="true" weight="0.15595238" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.21789473" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -662,13 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/ChatThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="26" column="51" lean-forward="true" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/Chat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="750">
@@ -690,17 +687,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/chat/ChatThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+        <state relative-caret-position="218">
+          <caret line="26" column="51" lean-forward="true" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="226" column="17" lean-forward="true" selection-start-line="226" selection-start-column="17" selection-end-line="226" selection-end-column="17" />
+        <state relative-caret-position="337">
+          <caret line="177" column="63" lean-forward="true" selection-start-line="177" selection-start-column="63" selection-end-line="177" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/mx/unam/ciencias/myp/server/Room.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
         </state>
       </provider>
     </entry>

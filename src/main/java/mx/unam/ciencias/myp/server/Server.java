@@ -178,9 +178,9 @@ public class Server {
             String username = serverThread.getUser().getName();
             if (room.isUserInvited(username) || room.isTheOwner(username)) {
                 room.sendMessageToGuests(username, message.getMessage());
-                serverThread.send("...MESSAGE SENT");
+                serverThread.send("...ROOM_MESSAGE_SENT");
             } else {
-                serverThread.send("...YOU ARE NOT PART OF THE ROOM");
+                serverThread.send("...YOU_ARE_NOT_PART_OF_THE_ROOM");
             }
         } else {
             serverThread.send("...ROOM NOT EXISTS");
@@ -202,11 +202,12 @@ public class Server {
             if (room.isUserInvited(username)) {
                 String addTo = room.addToRoom(serverThread);
                 serverThread.send(addTo);
+                room.sendMessageToGuests(username, "JOINED");
             } else {
-                serverThread.send("...YOU ARE NOT INVITED TO ROOM " + roomName);
+                serverThread.send("...YOU_ARE_NOT_INVITED_TO_ROOM " + roomName);
             }
         } else {
-            serverThread.send("...ROOM NOT EXISTS");
+            serverThread.send("...ROOM_DOES_NOT_EXIST");
         }
 
     }

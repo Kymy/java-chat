@@ -27,9 +27,9 @@ public class Room {
     public String addToRoom(ServerThread serverThread) {
         if(!connectedGuests.contains(serverThread)) {
             connectedGuests.add(serverThread);
-            return "...SUCCESFULLY JOINED TO ROOM";
+            return "...JOINED_TO_ROOM";
         }else {
-            return "...ALREADY EXISTS IN ROOM";
+            return "...ALREADY_IN_ROOM";
         }
     }
 
@@ -37,7 +37,7 @@ public class Room {
         for (int i=0; i<connectedGuests.size(); i++) {
             ServerThread actual = this.connectedGuests.get(i);
             if (!actual.getUser().getName().equals(sender)) {
-                connectedGuests.get(i).send("..." + nameRoom + "-" + sender + ": " + message);
+                connectedGuests.get(i).send("...ROOM_MSG_FROM " + nameRoom + "-" + sender + ": " + message);
             }
         }
     }
