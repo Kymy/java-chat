@@ -280,6 +280,7 @@ public class Server {
     }
 
     public void disconnectUser(ServerThread serverThread) {
+        sendMessageToIdentifiedClients(serverThread, "...DISCONNECTED_USER " + serverThread.getUser().getName());
         listClients.remove(serverThread);
         identifiedClients.remove(serverThread);
         closeClient(serverThread);
