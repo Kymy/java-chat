@@ -5,11 +5,16 @@ import java.util.ArrayList;
 public class Room {
 
     private String nameRoom;
-    private ServerThread owner;
+    private ServerThread owner; // the server thread that contains the reference to the user
     private ArrayList<String>  guests;
-    private ArrayList<ServerThread> connectedGuests;
+    private ArrayList<ServerThread> connectedGuests; // all the connected threads to the room
 
-
+    /**
+     * Builds the room from its name and the owner
+     * also initialize properties
+     * @param name room name
+     * @param owner owner thread
+     */
     public Room(String name, ServerThread owner) {
         this.nameRoom = name;
         this.owner = owner;
@@ -24,6 +29,11 @@ public class Room {
         }
     }
 
+    /**
+     * Add user to connected user list
+     * @param serverThread server thread that contains the reference to the user
+     * @return a string that indicates whether it joined or if it was already joined
+     */
     public String addToRoom(ServerThread serverThread) {
         if(!connectedGuests.contains(serverThread)) {
             connectedGuests.add(serverThread);
@@ -42,7 +52,6 @@ public class Room {
         }
     }
 
-
     public ServerThread getOwner() {
         return this.owner;
     }
@@ -59,6 +68,5 @@ public class Room {
     public boolean isTheOwner(String username) {
         return owner.getUser().getName().equals(username);
     }
-
 
 }

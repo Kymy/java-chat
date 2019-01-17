@@ -12,6 +12,12 @@ public class ServerThread extends Thread {
     private BufferedWriter out;
     private User user;
 
+    /**
+     * Initialize the server and the socket associated to this thread
+     * Also initialize the ID with the port of the socket
+     * @param _server
+     * @param _socket
+     */
     public ServerThread(Server _server, Socket _socket) {
         super();
         server = _server;

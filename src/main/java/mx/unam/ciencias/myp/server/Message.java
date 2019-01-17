@@ -3,12 +3,12 @@ package mx.unam.ciencias.myp.server;
 public class Message {
 
     private MessageType type;
-    private String message = "";
-    private String toWhom;
+    private String message = ""; // message content
+    private String toWhom; // receiver
 
     /**
      * Initialize the MessageType, the content of the message and the receiver
-     * @param line is a string that contains different data, depending of the type of message to construct
+     * @param line is a string that contains different data, depending of the message type to construct
      */
     public Message(String line) {
         String[] parts = line.split(" ");
@@ -101,9 +101,7 @@ public class Message {
                     setType(MessageType.INVALID);
                     break;
             }
-
         }
-
     }
 
     public MessageType getType() {
@@ -155,6 +153,12 @@ public class Message {
         return r;
     }
 
+    /**
+     * Builds the content message
+     * @param parts array containing the strings to concatenate
+     * @param start indicates from which position in the array it begins to concatenate the content of the message
+     * @return the message content
+     */
     private String concatMessage(String[] parts, int start) {
         if (start >= parts.length)
             return "";

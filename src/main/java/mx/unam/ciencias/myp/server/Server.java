@@ -6,8 +6,8 @@ import java.util.*;
 
 public class Server {
 
-    private boolean keepRunning; //says if we want to continue with the infinite loop that waits for connections
-    private ServerSocket server; //Socket associated mx.unam.ciencias.myp.server
+    private boolean keepRunning; // Says if we want to continue with the infinite loop that waits for connections
+    private ServerSocket server; // Socket associated mx.unam.ciencias.myp.server
     private ArrayList<ServerThread> listClients = new ArrayList<ServerThread>();
     private ArrayList<ServerThread> identifiedClients = new ArrayList<ServerThread>();
     private HashMap<String, Room> rooms = new HashMap<String, Room>();
