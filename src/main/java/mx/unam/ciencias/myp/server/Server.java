@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Server {
 
-    private boolean keepRunning; // Says if we want to continue with the infinite loop that waits for connections
+/*    private boolean keepRunning; // Says if we want to continue with the infinite loop that waits for connections
     private ServerSocket server; // Socket associated mx.unam.ciencias.myp.server
     private ArrayList<ServerThread> listClients = new ArrayList<ServerThread>();
     private ArrayList<ServerThread> identifiedClients = new ArrayList<ServerThread>();
@@ -40,11 +40,6 @@ public class Server {
         keepRunning = false;
     }
 
-    /**
-     * Create a new client and add it to list of clients
-     * @param socket the socket from which the communication was requested
-     * and starts the new server thread
-     */
     private void addServerThread(Socket socket) {
         ServerThread client = new ServerThread(this, socket);
         listClients.add(client);
@@ -65,13 +60,9 @@ public class Server {
             server = new Server(Integer.parseInt(args[0]));
     }
 
-    /**
-     * Makes the corresponding action depending of the message type
-     * @param serverThread the serverThread that is requesting the action
-     * @param msg contains the message from serverThread
-     */
-    public synchronized void handle(ServerThread serverThread,
-                                    String msg) {
+*/
+    public synchronized void handle(ServerMessageProcessor processor,
+                                    Message message) { /*
         Message message = new Message(msg);
         switch(message.getType()) {
             case IDENTIFY:
@@ -151,8 +142,8 @@ public class Server {
                             + "\n...ROOMESSAGE roomname messageContent"
                             + "\n...DISCONNECT");
                 break;
-        }
-    }
+                } */
+    } /*
 
     public void identifyUser(ServerThread serverThread, Message message) {
         String userName = message.getMessage();
@@ -379,5 +370,5 @@ public class Server {
             listClients.remove(clientToRemove);
             clientToRemove.close();
         }
-    }
+    }*/
 }

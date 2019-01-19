@@ -5,9 +5,7 @@ public class User {
     private String name;
     private UserStatus status;
 
-    public User() {}
-
-    public void setName(String name) {
+    public User(String name) {
         this.name = name;
     }
 
@@ -23,8 +21,7 @@ public class User {
         return status;
     }
 
-    public String toString() {
-        return name + ": " + status;
+    public int hashCode() {
+        return name.hashCode();
     }
-
 }
