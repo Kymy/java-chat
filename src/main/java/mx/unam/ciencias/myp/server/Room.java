@@ -32,7 +32,11 @@ public class Room {
         guests.add(guest);
     }
 
-    public void guestLeave(User guest) {
+    public void guestUninvited(User guest) {
+        invited.remove(guest);
+    }
+
+    public void guestLeft(User guest) {
         guests.remove(guest);
     }
 

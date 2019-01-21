@@ -7,6 +7,7 @@ public class User {
 
     public User(String name) {
         this.name = name;
+        status = UserStatus.ACTIVE;
     }
 
     public String getName() {

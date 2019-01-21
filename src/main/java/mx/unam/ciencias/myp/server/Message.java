@@ -5,7 +5,7 @@ public class Message {
     private MessageType type;
     private String userName;
     private String roomName;
-    private String state;
+    private String status;
     private String messageContent;
 
     public Message(String line) {
@@ -27,11 +27,14 @@ public class Message {
         case "NEWUSER":           defineNewUser(parts);           break;
         case "MESSAGEFROM":       defineMessageFrom(parts);       break;
         case "PUBLICMESSAGEFROM": definePublicMessageFrom(parts); break;
-        case "JOINEDROOM":        defineJoinedFrom(parts);        break;
+        case "INVITEFROM":        defineInviteFrom(parts);        break;
+        case "JOINEDFROM":        defineJoinedFrom(parts);        break;
         case "ROOMESSAGEFROM":    defineRoomMessageFrom(parts);   break;
+        case "LEFTROOM":          defineLeftRoom(parts);          break;
         case "DISCONNECTED":      defineDisconnected(parts);      break;
-        case "WARNING":           defineWarning(parts);           break;
         case "ERROR":             defineError(parts);             break;
+        case "WARNING":           defineWarning(parts);           break;
+        case "INFO":              defineInfo(parts);              break;
         default:                  defineInvalid(parts[0]);        break;
         }
     }
@@ -52,6 +55,10 @@ public class Message {
         return roomName;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     private void defineIdentify(String[] parts) {
         if (parts.length != 2) {
             type = MessageType.INVALID;
@@ -68,12 +75,12 @@ public class Message {
             messageContent = "STATUS has 1 parameter";
         } else {
             type = MessageType.STATUS;
-            messageContent = parts[1];
+            status = parts[1];
         }
     }
 
     private void defineUsers(String[] parts) {
-        if (parts.length != 2) {
+        if (parts.length != 1) {
             type = MessageType.INVALID;
             messageContent = "USERS has no parameters";
         } else {
@@ -118,9 +125,8 @@ public class Message {
             messageContent = "INVITE has 2 parameters";
         } else {
             type = MessageType.INVITE;
-            userName = parts[1];
-            roomName = parts[2];
-            messageContent = rebuildMessage(parts, 2);
+            roomName = parts[1];
+            messageContent = parts[2];
         }
     }
 
@@ -196,12 +202,23 @@ public class Message {
         }
     }
 
+    private void defineInviteFrom(String[] parts) {
+        if (parts.length != 3) {
+            type = MessageType.INVALID;
+            messageContent = "INVITEFROM has 2 parameters";
+        } else {
+            type = MessageType.INVITEFROM;
+            userName = parts[1];
+            roomName = parts[2];
+        }
+    }
+
     private void defineJoinedFrom(String[] parts) {
         if (parts.length != 3) {
             type = MessageType.INVALID;
             messageContent = "JOINEDFROM has 2 parameters";
         } else {
-            type = MessageType.JOINEDROOM;
+            type = MessageType.JOINEDFROM;
             userName = parts[1];
             roomName = parts[2];
         }
@@ -219,6 +236,16 @@ public class Message {
         }
     }
 
+    private void defineLeftRoom(String[] parts) {
+        if (parts.length != 2) {
+            type = MessageType.INVALID;
+            messageContent = "LEFTROOM has 1 parameter";
+        } else {
+            type = MessageType.LEFTROOM;
+            roomName = parts[1];
+        }
+    }
+
     private void defineDisconnected(String[] parts) {
         if (parts.length != 2) {
             type = MessageType.INVALID;
@@ -226,16 +253,6 @@ public class Message {
         } else {
             type = MessageType.DISCONNECT;
             userName = parts[1];
-        }
-    }
-
-    private void defineWarning(String[] parts) {
-        if (parts.length < 2) {
-            type = MessageType.INVALID;
-            messageContent = "WARNING has 1 or more parameters";
-        } else {
-            type = MessageType.WARNING;
-            messageContent = rebuildMessage(parts, 1);
         }
     }
 
@@ -249,6 +266,26 @@ public class Message {
         }
     }
 
+    private void defineWarning(String[] parts) {
+        if (parts.length < 2) {
+            type = MessageType.INVALID;
+            messageContent = "WARNING has 1 or more parameters";
+        } else {
+            type = MessageType.WARNING;
+            messageContent = rebuildMessage(parts, 1);
+        }
+    }
+
+    private void defineInfo(String[] parts) {
+        if (parts.length < 2) {
+            type = MessageType.INVALID;
+            messageContent = "INFO has 1 or more parameters";
+        } else {
+            type = MessageType.INFO;
+            messageContent = rebuildMessage(parts, 1);
+        }
+    }
+
     private void defineInvalid(String message) {
         type = MessageType.INVALID;
         messageContent = "Message not recognized: " + message;
@@ -258,7 +295,7 @@ public class Message {
         if (start >= parts.length)
             return "";
         String r = parts[start];
-        for (int i = start; i < parts.length; i++)
+        for (int i = start + 1; i < parts.length; i++)
             r += " " + parts[i];
         return r;
     }
