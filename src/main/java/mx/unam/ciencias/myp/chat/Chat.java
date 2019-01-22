@@ -42,7 +42,7 @@ public class Chat {
             while (keepRunning) {
                 String line = scanner.nextLine();
                 Message message = new Message(line);
-                out.write(message.toString());
+                out.write(line);
                 out.newLine();
                 out.flush();
                 if (message.getType() == MessageType.DISCONNECT) {
